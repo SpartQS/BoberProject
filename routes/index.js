@@ -1,19 +1,31 @@
 var express = require('express');
 var router = express.Router();
 
-/* Страница Простого Бобера */
-router.get('/prbober', function(req, res, next) {
-  res.send("<h1>Простой Бобер</h1>")
+/* Просто Бобер */
+router.get('/pbober', function(req, res, next) {
+  res.render('bober', {
+  title: "Просто Бобер",
+  picture: "images/prostobober.jpg",
+  desc: "Обычный"
   });
-
-/* Страница Военного Бобера */
+  });
+  
+/* Военный Бобер */
 router.get('/vbober', function(req, res, next) {
-  res.send("<h1>Военный Бобер</h1>")
+  res.render('bober', {
+  title: "Военный Бобер",
+  picture: "images/voenniibober.jpg",
+  desc: "Боевой"
+  });
   });
 
-/* Страница Орущий Бобер */
+/* Орущий Бобер */
 router.get('/obober', function(req, res, next) {
-  res.send("<h1>Орущий Бобер</h1>")
+  res.render('bober', {
+  title: "Орущий Бобер",
+  picture: "images/orushiibober.jpg",
+  desc: "Орущий"
+  });
   });
 
 module.exports = router;
