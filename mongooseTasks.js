@@ -1,7 +1,6 @@
-var mongoose = require('mongoose')
+/*var mongoose = require('mongoose')
 mongoose.connect('mongodb://127.0.0.1:27017/test')
 var schema = mongoose.Schema({ name: String })
-
 schema.methods.taste = function(){
     console.log(this.get("name") + " Бобер красивый")
     }    
@@ -15,4 +14,21 @@ Bobers.save().then(() => {
 })
 .catch((err) => {
 console.error(err);
+});*/
+
+var mongoose = require('mongoose')
+mongoose.connect('mongodb://127.0.0.1:27017/test')
+var Bober = require("./models/bober.js").Bober
+var bobers = new Bober({
+title: "Бобер крутой",
+nick: "сильный"
+})
+console.log(bobers)
+
+bobers.save()
+.then((bober) => {
+        console.log("Saved Bober with title:", bober.title);
+})
+.catch((err) => {
+        console.error(err);
 });
