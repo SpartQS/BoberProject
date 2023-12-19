@@ -8,7 +8,7 @@ await client.connect();
 var database = client.db("Bobers");
 database.dropDatabase()
 database = client.db("Bobers");
-const bober = database.collection("Types");
+const bober = database.collection("bobers");
 const result = await bober.insertMany(data);
 console.log(`${result.insertedCount} documents were inserted`);
 } finally {

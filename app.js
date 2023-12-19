@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/threecats')
+mongoose.connect('mongodb://localhost/Bobers')
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
