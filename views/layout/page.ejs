@@ -13,23 +13,12 @@
     <nav class="navbar navbar-expand-sm bg-light navbar-light">
         <div class="container-fluid">
         <ul class="navbar-nav">
-        <li class="nav-item">
-        <a class="nav-link" href="/">Главная</a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link" href="/bobers/pbober">Руслан</a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link" href="/bobers/vbober">Сергей</a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link" href="/bobers/obober">Алексей</a>
-        </li>
-        </ul>
-        <ul class="navbar-nav navbar-right">
-        <li>
-        <a class="nav-link" href="">Войти</a>
-        </li>
+            <% menu.forEach(function(bober){ %>
+                <li class="nav-item">
+                <a class="nav-link"
+                href="/bobers/<%=bober.nick%>"><%=bober.title%></a>
+                </li>
+                <% }) %>                
         </ul>
         </div>
         </nav>

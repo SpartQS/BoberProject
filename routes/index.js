@@ -1,31 +1,19 @@
 var express = require('express');
 var router = express.Router();
+var Bober = require("../models/bober").Bober
 
-/* Просто Бобер */
-router.get('/pbober', function(req, res, next) {
-  res.render('bober', {
-  title: "Просто Бобер",
-  picture: "images/prostobober.jpg",
-  desc: "Обычный"
-  });
-  });
-  
-/* Военный Бобер */
-router.get('/vbober', function(req, res, next) {
-  res.render('bober', {
-  title: "Военный Бобер",
-  picture: "images/voenniibober.jpg",
-  desc: "Боевой"
-  });
-  });
 
-/* Орущий Бобер */
-router.get('/obober', function(req, res, next) {
-  res.render('bober', {
-  title: "Орущий Бобер",
-  picture: "images/orushiibober.jpg",
-  desc: "Орущий"
-  });
-  });
+/* GET home page. */
+router.get('/', async (req, res, next) => {
+  try {
+    const menu = await Bober.find({}, { _id: 0, title: 1, nick: 1 });
+    res.render('index', {
+      title: 'Express',
+      menu: menu
+    });
+  } catch (err) {
+    next(err);
+  }
+});
 
 module.exports = router;
