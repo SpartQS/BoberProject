@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
+var checkAuth = require("./../middleware/checkAuth.js")
 const Bober = require('../models/bober.js').Bober;
 var User = require("../models/User").User
+
 
 /* GET home page. */
 

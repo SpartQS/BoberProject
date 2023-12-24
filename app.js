@@ -3,10 +3,11 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose')
-var Bober = require('./models/bober.js').Bober;
-mongoose.connect('mongodb://localhost/Bobers')
-var session = require("express-session")
+var bodyParser = require('body-parser');
 var logger = require('morgan');
+var session = require("express-session")
+var Bober = require('./models/bober.js').Bober;
+mongoose.connect('mongodb://localhost/Bobers');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -40,7 +41,7 @@ app.use(function(req,res,next){
   })
 
 app.use(require("./middleware/createMenu.js"));
-app.use(require("./middleware/createUser.js"));
+app.use(require("./middleware/createUser.js"))
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/bobers', bobersRouter);

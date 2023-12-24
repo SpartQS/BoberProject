@@ -1,29 +1,28 @@
 var express = require('express');
 var router = express.Router();
-var Bober = require("../models/bober").Bober
+var Bober = require("../models/bober.js").Bober;
 var async = require("async")
+var checkAuth = require("./../middleware/checkAuth.js")
 
 /* Страница героев */
-router.get('/:nick', async function(req, res, next) {
+router.get('/:nick',checkAuth, async function(req, res, next) {
   try {
-    const [bober, bobers] = await Promise.all([
-      Bober.findOne({ nick: req.params.nick }),
-      Bober.find({}, { _id: 0, title: 1, nick: 1 })
-    ]);
-  
-    if (!bober) {
-      throw new Error("Нет такого");
-    }
+      const [bober, bobers] = await Promise.all([
+        Bober.findOne({ nick: req.params.nick })
+      ]);
     
-    renderBober(res, bober.title, bober.avatar, bober.desc, bobers);
-  } catch (err) {
-    next(err);
-  }
-});
+      if (!bober) {
+        throw new Error("Нет такого");
+      }
+      
+      renderBober(res, bober.title, bober.avatar, bober.desc, bobers);
+    } catch (err) {
+      next(err);
+    }
+  });
+  
 
 function renderBober(res, title, picture, desc, bobers) {
-  console.log(bobers);
-
   res.render('bober', {
     title: title,
     picture: picture,

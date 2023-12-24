@@ -13,26 +13,27 @@
     <nav class="navbar navbar-expand-sm bg-light navbar-light">
         <div class="container-fluid">
             <ul class="nav navbar-nav navbar-right">
-                <%if(user){%>
-                    <form action="/logout" method="post">
-                      <li><button type="submit" class="btn btnlink">Выйти</button></li>
-                      </form>
-                  <% } else { %>
-                  <li><a href="/logreg">Войти</a></li>
-                  <% } %>
+                <ul class="nav navbar-nav navbar-right">
+                    <%if(user){%>
+                      <form action="/logout" method="post">
+                        <li><button type="submit" class="btn btnlink">Выйти</button></li>
+                        </form>
+                    <% } else { %>
+                    <li><a href="/logreg">Войти</a></li>
+                    <% } %>
+                    </ul>
                   </ul>
-                </ul>
             <ul class="navbar-nav">
-            <% if(typeof nav == 'object' && nav){ nav.forEach(function(bober){
-                %>
-                <li class="nav-item">
-                <a class="nav-link"
-                href="/bobers/<%=bober.nick%>"><%=bober.title%></a>
-                </li>
-                <% })} %>              
+                <% if(typeof nav == 'object' && nav){ nav.forEach(function(bober){
+                    %>
+                    <li class="nav-item">
+                    <a class="nav-link"
+                    href="/bobers/<%=bober.nick%>"><%=bober.title%></a>
+                    </li>
+                    <% })} %>  
         </ul>
         </div>
-        </nav>
+    </nav>
 <%- body %>
 </body>
 </html>
