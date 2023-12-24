@@ -32,7 +32,11 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
   store: MongoStore.create({mongoUrl: 'mongodb://localhost/Bobers'})
-  }))
+}))
+app.use(function(req,res,next){
+  req.session.counter = req.session.counter +1 || 1
+  next()
+  })
   
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
