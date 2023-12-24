@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose')
+var Bober = require('./models/bober.js').Bober;
 mongoose.connect('mongodb://localhost/Bobers')
 var session = require("express-session")
 var logger = require('morgan');
@@ -37,7 +38,8 @@ app.use(function(req,res,next){
   req.session.counter = req.session.counter +1 || 1
   next()
   })
-  
+
+app.use(require("./middleware/createMenu.js"));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/bobers', bobersRouter);

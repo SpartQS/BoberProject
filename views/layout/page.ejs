@@ -13,12 +13,13 @@
     <nav class="navbar navbar-expand-sm bg-light navbar-light">
         <div class="container-fluid">
         <ul class="navbar-nav">
-            <% menu.forEach(function(bober){ %>
+            <% if(typeof nav == 'object' && nav){ nav.forEach(function(bober){
+                %>
                 <li class="nav-item">
                 <a class="nav-link"
                 href="/bobers/<%=bober.nick%>"><%=bober.title%></a>
                 </li>
-                <% }) %>                
+                <% })} %>              
         </ul>
         </div>
         </nav>
