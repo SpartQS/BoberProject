@@ -1,12 +1,10 @@
-const Bober = require("./../models/bober.js").Bober;
+var db = require('../mySQLConnect.js');
 
-module.exports = async function(req, res, next) {
-  try {
+module.exports = function(req, res, next) {
     res.locals.nav = [];
-    const result = await Bober.find({}, { _id: 0, title: 1, nick: 1 });
-    res.locals.nav = result;
-    next();
-  } catch (err) {
-    throw err;
-  }
+    db.query('SELECT title, nick FROM bobers', function(err, result) {
+        if (err) throw err;
+        res.locals.nav = result;
+        next();
+    });
 };
