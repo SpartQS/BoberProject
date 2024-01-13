@@ -2,12 +2,14 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var mongoose = require('mongoose')
-var bodyParser = require('body-parser');
 var logger = require('morgan');
-var session = require("express-session")
-var Bober = require('./models/bober.js').Bober;
-mongoose.connect('mongodb://localhost/Bobers');
+var bodyParser = require('body-parser');
+//var mongoose = require('mongoose');
+//var Bober = require('./models/bober.js').Bober;
+//mongoose.connect('mongodb://localhost/Bobers');
+var mysql2 = require('mysql2/promise');
+var session = require("express-session");
+var MySQLStore = require('express-mysql-session')(session);
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -15,6 +17,16 @@ var bobersRouter = require('./routes/bobers');
 
 var app = express();
 
+var options = {
+  host: '127.0.0.1',
+  port: '3306',
+  user: 'root',
+  password: 'MySQl1234',
+  database: 'bobers'
+};
+
+var connection = mysql2.createPool(options)
+var sessionStore = new MySQLStore(options, connection);
 // view engine setup
 app.engine('ejs',require('ejs-locals'));
 app.set('views', path.join(__dirname, 'views'));
@@ -25,8 +37,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'bower_components')));
 
-var MongoStore = require('connect-mongo');
+/*var MongoStore = require('connect-mongo');
 
 app.use(session({
   secret: "ThreeBobers",
@@ -34,7 +47,20 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
   store: MongoStore.create({mongoUrl: 'mongodb://localhost/Bobers'})
-}))
+}))*/
+app.use(session({
+  secret: 'ThreeBobers',
+  key: 'sid',
+  store: sessionStore,
+  resave: true,
+  saveUninitialized: true,
+  cookie: {
+    path: '/',
+    httpOnly: true,
+    maxAge: 60 * 1000
+  }
+}));
+
 app.use(function(req,res,next){
   req.session.counter = req.session.counter +1 || 1
   next()
@@ -60,7 +86,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error', {title:'Error',menu:[]});
 });
 
 module.exports = app;
