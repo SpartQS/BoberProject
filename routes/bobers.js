@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var db = require('../mySQLConnect.js');
+var db = require('../mySQLconnect.js');
 //var Bober = require('../models/bober.js').Bober;
-var async = require("async");
-//var checkAuth = require("./../middleware/checkAuth.js")
+//var async = require("async");
+var checkAuth = require("./../middleware/checkAuth.js")
 
 
 /* GET bobers listing. */
@@ -11,7 +11,7 @@ router.get('/', function (req, res, next) {
   res.send('<h1>Это экран для списка бобров</h1>');
 });
 
-router.get("/:nick", function (req, res, next) {
+router.get("/:nick", checkAuth, function (req, res, next) {
   db.query(`SELECT * FROM bobers WHERE bobers.nick = '${req.params.nick}'`, (err,
     bobers) => {
     if (err) {

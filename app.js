@@ -13,7 +13,7 @@ var MySQLStore = require('express-mysql-session')(session);
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var bobersRouter = require('./routes/bobers');
+var bobersRouter = require('./routes/bobers')
 
 var app = express();
 

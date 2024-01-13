@@ -1,6 +1,6 @@
-var express = require('express')
-var router = express.Router()
-var checkAuth = require("../middleware/checkAuth.js")
+var express = require('express');
+var router = express.Router();
+var checkAuth = require("./../middleware/checkAuth.js")
 var db = require('../mySQLconnect.js');
 
 /* GET home page. */
@@ -15,7 +15,7 @@ router.get('/', async (req, res, next) => {
 });
 
 /* GET login/registration page. */
-router.get('/logreg', function(req, res, next) {
+router.get('/logreg', async function(req, res, next) {
   res.render('logreg',{title: 'Вход', error:null});
 });
   
@@ -31,7 +31,7 @@ router.post('/logreg', async function (req, res, next) {
           req.session.user = user.id
           res.redirect('/')
         } else {
-          res.render('logreg', { title: 'Вход' })
+          res.render('logreg', { title: 'Вход', error: 'Неверный пароль' })
         }
       } else {
         db.query(`INSERT INTO user (username, password) VALUES ('${username}',
